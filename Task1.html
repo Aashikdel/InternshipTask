@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Image Gallery</title>
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+
+    
+    .gallery-container {
+      width: 90%;
+      max-width: 600px;
+      position: relative;
+      text-align: center;
+    }
+
+    
+    .gallery-image {
+      width: 100%;
+      max-height: 400px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      display: none;
+    }
+    .gallery-image.active {
+      display: block;
+    }
+
+  
+    .thumbnail-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+      gap: 5px;
+    }
+    .thumbnail {
+      width: 60px;
+      height: 40px;
+      cursor: pointer;
+      opacity: 0.6;
+      border-radius: 4px;
+      transition: opacity 0.3s;
+    }
+    .thumbnail:hover,
+    .thumbnail.active {
+      opacity: 1;
+    }
+
+   
+    .nav-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 24px;
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+    .nav-button.left {
+      left: -20px;
+    }
+    .nav-button.right {
+      right: -20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="gallery-container">
+
+  <img src="box1_image.jpg" alt="Image 1" class="gallery-image active">
+  <img src="box2_image.jpg" alt="Image 2" class="gallery-image">
+  <img src="box3_image.jpg" alt="Image 3" class="gallery-image">
+  <img src="box4_image.jpg" alt="Image 4" class="gallery-image">
+  <img src="box5_image.jpg" alt="Image 5" class="gallery-image">
+
+  
+  <button class="nav-button left" onclick="prevImage()">&#10094;</button>
+  <button class="nav-button right" onclick="nextImage()">&#10095;</button>
+
+  
+  <div class="thumbnail-container">
+    <img src="box1_image.jpg" alt="Thumbnail 1" class="thumbnail active" onclick="selectImage(0)">
+    <img src="box2_image.jpg" alt="Thumbnail 2" class="thumbnail" onclick="selectImage(1)">
+    <img src="box3_image.jpg" alt="Thumbnail 3" class="thumbnail" onclick="selectImage(2)">
+    <img src="box4_image.jpg" alt="Thumbnail 4" class="thumbnail" onclick="selectImage(3)">
+    <img src="box5_image.jpg" alt="Thumbnail 5" class="thumbnail" onclick="selectImage(4)">
+  </div>
+</div>
+
+<script>
+  let currentIndex = 0;
+  const images = document.querySelectorAll('.gallery-image');
+  const thumbnails = document.querySelectorAll('.thumbnail');
+
+  function showImage(index) {
+    images.forEach((img, i) => {
+      img.classList.toggle('active', i === index);
+      thumbnails[i].classList.toggle('active', i === index);
+    });
+  }
+
+  function nextImage() {
+    currentIndex = (currentIndex + 1) % images.length;
+    showImage(currentIndex);
+  }
+
+  function prevImage() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    showImage(currentIndex);
+  }
+
+  function selectImage(index) {
+    currentIndex = index;
+    showImage(currentIndex);
+  }
+</script>
+
+</body>
+</html>
